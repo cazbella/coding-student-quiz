@@ -28,11 +28,19 @@ const incorrectAudio = new Audio("./assets/sfx/incorrect.wav");
 // Function to start the quiz
 function startQuiz() {// Start the countdown timer
   console.log("Start button clicked!"); // Add this line
-  startTimer();
+  var startScreen = document.getElementById("start-screen");
+  startScreen.classList.add("hide");
 
+  // Show the first question section
+  var questionsSection = document.getElementById("questions");
+  questionsSection.classList.remove("hide");
+ 
+  startTimer();
+  showQuestion();
 }
 
   // Function to start the countdown timer
+  //Based on code from lesson
 function startTimer() {
   timerInterval = setInterval(function () {
     if (timeLeft > 1) {
@@ -51,8 +59,12 @@ function startTimer() {
   }, 1000); //interval every second
 }
 
+//show the first question
 function showQuestion() {
+  // un-hide questions section
+  
   // Get the current question from the 'questions' array based on the 'currentQuestionIndex'.
+  
   var currentQuestion = questions[currentQuestionIndex];
 
   // Set the text of the 'questionTitle' element to the current question's text.
@@ -72,7 +84,7 @@ function showQuestion() {
     // Add a CSS class "choice" to the button.
     choiceButton.setAttribute("class", "choice");
     
-    // Append the button to the 'choicesContainer' to display it.
+    // Append the button to the 'choicesContainer' in dom to display it.
     choicesContainer.appendChild(choiceButton);
 
     // Add a click event listener to the button to check the selected answer when it's clicked.
@@ -83,8 +95,8 @@ function showQuestion() {
 
   
 }
-showQuestion();
 
+console.log(questionTitle.textContent);
 
 
 // Function to end the quiz
@@ -98,12 +110,6 @@ function endQuiz() {
 // Add an event listener to start the quiz when the "Start" button is clicked
 startButton.addEventListener("click", startQuiz);
    
-
-  // Show the first question
-  // showQuestion();
-
-  // Function to display a question
-
 
 
 
