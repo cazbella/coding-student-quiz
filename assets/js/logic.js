@@ -1,4 +1,25 @@
+// Import the questions array from questions.js
+import { questions } from "./questions.js";
 
+// Other variables
+var currentQuestionIndex = 0;
+var timerInterval;
+var timeLeft = 60; // Initial time in seconds
+
+// Get DOM elements
+var startButton = document.getElementById("start");
+var timeDisplay = document.getElementById("time");
+var questionTitle = document.getElementById("question-title");
+var choicesContainer = document.getElementById("choices");
+var endScreen = document.getElementById("end-screen");
+var finalScore = document.getElementById("final-score");
+var initialsInput = document.getElementById("initials");
+var submitButton = document.getElementById("submit");
+var feedback = document.getElementById("feedback");
+
+// Audio elements
+const correctAudio = new Audio("correct.wav");
+const incorrectAudio = new Audio("incorrect.wav");
   
 //The first view of the application displays a button used to start the quiz
 
