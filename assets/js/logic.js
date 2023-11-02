@@ -27,6 +27,7 @@ const incorrectAudio = new Audio("./assets/sfx/incorrect.wav");
 //Once the quiz begins, a countdown timer starts
 // Function to start the quiz
 function startQuiz() {// Start the countdown timer
+  console.log("Start button clicked!"); // Add this line
   startTimer();
 
 }
@@ -43,11 +44,55 @@ function startTimer() {
       timeLeft--;
     } else {
       //when timer runs out, clear the timer
-      timeDisplay.textContent = '';
+      timeDisplay.textContent = 'Time is up!';
       clearInterval(timerInterval);
      
     }
   }, 1000); //interval every second
+}
+
+function showQuestion() {
+  // Get the current question from the 'questions' array based on the 'currentQuestionIndex'.
+  var currentQuestion = questions[currentQuestionIndex];
+
+  // Set the text of the 'questionTitle' element to the current question's text.
+  questionTitle.textContent = currentQuestion.question;
+
+  // Clear the contents of the 'choicesContainer' element to prepare for displaying answer choices.
+  choicesContainer.innerHTML = '';
+
+  // Loop through each answer choice in the 'currentQuestion.choices' array.
+  currentQuestion.choices.forEach(function (choice) {
+    // Create a new 'button' element.
+    var choiceButton = document.createElement("button");
+    
+    // Set the text content of the button to the current answer choice.
+    choiceButton.textContent = choice;
+    
+    // Add a CSS class "choice" to the button.
+    choiceButton.setAttribute("class", "choice");
+    
+    // Append the button to the 'choicesContainer' to display it.
+    choicesContainer.appendChild(choiceButton);
+
+    // Add a click event listener to the button to check the selected answer when it's clicked.
+    choiceButton.addEventListener("click", function () {
+      checkAnswer(choice, currentQuestion.correctAnswer);
+    });
+  });
+
+  
+}
+showQuestion();
+
+
+
+// Function to end the quiz
+function endQuiz() {
+  clearInterval(timerInterval);
+  timeDisplay.textContent = "Quiz completed!";
+  
+  // Need to display score and initials
 }
 
 // Add an event listener to start the quiz when the "Start" button is clicked
@@ -56,6 +101,10 @@ startButton.addEventListener("click", startQuiz);
 
   // Show the first question
   // showQuestion();
+
+  // Function to display a question
+
+
 
 
 
