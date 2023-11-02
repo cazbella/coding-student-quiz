@@ -22,9 +22,22 @@ const correctAudio = new Audio("correct.wav");
 const incorrectAudio = new Audio("incorrect.wav");
   
 //The first view of the application displays a button used to start the quiz
+//this is displayed in starter code
 
 
-//Clicking the 'Start Quiz' button displays a series of questions
+// Function to start the quiz
+function startQuiz() {
+  startButton.style.display = "none"; // Hide the "Start Quiz" button
+  endScreen.style.display = "none";
+  currentQuestionIndex = 0;
+  timeLeft = 60; // Reset the timer to 60 seconds (or your desired initial time)
+  startTimer();
+  showQuestion(currentQuestionIndex);
+}
+
+// Add an event listener to start the quiz
+startButton.addEventListener("click", startQuiz);
+
 
 
 //Once the quiz begins, a countdown timer starts
@@ -38,7 +51,7 @@ const incorrectAudio = new Audio("incorrect.wav");
 
 //After the game ends, the user can save their initials and score to a highscores view using local storage
 
- 
+ //timer code from lesson
 //  // Use the `setInterval()` method to call a function to be executed every 1000 milliseconds
 //  var timeInterval = setInterval(function () {
 //     // As long as the `timeLeft` is greater than 1
