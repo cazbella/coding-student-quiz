@@ -14,6 +14,9 @@ var finalScore = document.getElementById("final-score");
 var initialsInput = document.getElementById("initials");
 var submitButton = document.getElementById("submit");
 var feedback = document.getElementById("feedback");
+var startScreen = document.getElementById("start-screen");
+var questionsSection = document.getElementById("questions");
+var runningScore = 0; 
 
 // Audio elements
 const correctAudio = new Audio("./assets/sfx/correct.wav");
@@ -23,17 +26,18 @@ const incorrectAudio = new Audio("./assets/sfx/incorrect.wav");
 //this is displayed in starter code
 
 
+
 //Once the quiz begins, a countdown timer starts
 // Function to start the quiz
 function startQuiz() {// Start the countdown timer
-  console.log("Start button clicked!"); // Add this line
-  var startScreen = document.getElementById("start-screen");
+  console.log("Start button clicked!"); 
+  
   startScreen.classList.add("hide");
 
   // Show the first question section
-  var questionsSection = document.getElementById("questions");
+  
   questionsSection.classList.remove("hide");
- 
+  
   startTimer();
   showQuestion();
 }
@@ -41,6 +45,7 @@ function startQuiz() {// Start the countdown timer
   // Function to start the countdown timer
   //Based on code from lesson
 function startTimer() {
+  timeDisplay.textContent = timeLeft + ' seconds remaining';
   timerInterval = setInterval(function () {
     if (timeLeft > 1) {
       timeDisplay.textContent = timeLeft + ' seconds remaining';
@@ -49,12 +54,13 @@ function startTimer() {
     } else if (timeLeft === 1) {
       timeDisplay.textContent = timeLeft + ' second remaining';
       timeLeft--;
-    } else {
+    } else if (timeLeft <= 0) {
       //when timer runs out, clear the timer
       timeDisplay.textContent = 'Time is up!';
       clearInterval(timerInterval);
-     
+      endQuiz();
     }
+    
   }, 1000); //interval every second
 }
 
@@ -91,31 +97,16 @@ function showQuestion() {
   });
   
 }
-showQuestion();
+// showQuestion();
 
 // Function to check the selected answer
+
 function checkAnswer(selectedChoice, correctAnswer) {
-  // Get all choice buttons
-  var choiceButtons = document.querySelectorAll(".choice");
-
-  // Iterate through the buttons to style them
-  choiceButtons.forEach(function (choiceButton) {
-    choiceButton.disabled = true; // Disable buttons to prevent further clicks
-
-    if (choiceButton.textContent === selectedChoice) {
-      // Style the selected (wrong) answer button
-      choiceButton.style.backgroundColor = "green"; // Change to the color you prefer
-      choiceButton.style.color = "white";
-    } else if (choiceButton.textContent === correctAnswer) {
-      // Style the correct answer button
-      choiceButton.style.backgroundColor = "green"; // Change to the color you prefer
-      choiceButton.style.color = "white";
-    }
-  });
-
   if (selectedChoice === correctAnswer) {
     correctAudio.play();
     feedback.textContent = "Correct!";
+    runningScore += 10;
+    console.log(runningScore);
   } else {
     incorrectAudio.play();
     feedback.textContent = "Incorrect!";
@@ -131,36 +122,26 @@ function checkAnswer(selectedChoice, correctAnswer) {
   }
 }
 
-// function checkAnswer(selectedChoice, correctAnswer) {
-//   if (selectedChoice === correctAnswer) {
-//     correctAudio.play();
-//     feedback.textContent = "Correct!";
-//   } else {
-//     incorrectAudio.play();
-//     feedback.textContent = "Incorrect!";
-//     timeLeft -= 10;
-//   }
-
-//   currentQuestionIndex++;
-
-//   if (currentQuestionIndex < questions.length) {
-//     showQuestion();
-//   } else {
-//     endQuiz();
-//   }
-// }
-
-console.log(questionTitle.textContent);
-
 
 // Function to end the quiz
 function endQuiz() {
   clearInterval(timerInterval);
   timeDisplay.textContent = "Quiz completed!";
-  
+  questionsSection.classList.add("hide");
+  endScreen.classList.remove("hide");
+  finalScore.textContent = runningScore;
   // Need to display score and initials
 }
 
+function submitScore () {
+console.log("end button clicked");
+console.log(initialsInput.value);
+
+}
+
+
+
+submitButton.addEventListener("click", submitScore);
    
 
 
