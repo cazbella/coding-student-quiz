@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="./assets/css/styles.css" />
   </head>
 
-  <body>
+  <body data-page="index">
+    <!-- adds identifier so event listener error can be resolved -->
     <div class="scores"><a href="highscores.html">View Highscores</a></div>
 
     <div class="timer">Time: <span id="time">0</span></div>
@@ -30,6 +31,12 @@
         <div id="choices" class="choices"></div>
       </div>
 
+      <!-- added div to make correct and incorrect responses -->
+      <div id="question-outcome">
+        <h3 id="correct-answer" class="hide">Correct!</h3>
+        <h3 id="incorrect-answer" class="hide">Incorrect!</h3>
+      </div>
+
       <div id="end-screen" class="hide">
         <h2>All done!</h2>
         <p>Your final score is <span id="final-score"></span>.</p>
@@ -43,6 +50,11 @@
     </div>
 
     <script src="./assets/js/questions.js"></script>
+    
     <script src="./assets/js/logic.js"></script>
+
+    <script src="./assets/js/scores.js"></script>
+
+    
   </body>
 </html>

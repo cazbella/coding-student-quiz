@@ -17,6 +17,7 @@ var feedback = document.getElementById("feedback");
 var startScreen = document.getElementById("start-screen");
 var questionsSection = document.getElementById("questions");
 var runningScore = 0;
+var highScores = document.getElementById("high-scores");
 
 // Audio elements
 const correctAudio = new Audio("./assets/sfx/correct.wav");
@@ -91,24 +92,34 @@ function showQuestion() {
       checkAnswer(choice, currentQuestion.correctAnswer);
     });
   });
-
 }
-// showQuestion();
 
 // Function to check the selected answer
-
 function checkAnswer(selectedChoice, correctAnswer) {
+  var correctAnswerElement = document.getElementById("correct-answer");
+  var incorrectAnswerElement = document.getElementById("incorrect-answer");
+
+  
   if (selectedChoice === correctAnswer) {
     correctAudio.play();
+    correctAnswerElement.classList.remove("hide");
+    incorrectAnswerElement.classList.add("hide");
     feedback.textContent = "Correct!";
     runningScore += 10;
     console.log(runningScore);
   } else {
     //If a question is answered incorrectly, additional time is subtracted from the timer
     incorrectAudio.play();
+    incorrectAnswerElement.classList.remove("hide");
+    correctAnswerElement.classList.add("hide");
     feedback.textContent = "Incorrect!";
     timeLeft -= 10;
   }
+  setTimeout(function () {
+    //shows message correct/incorrect for 1 second
+    correctAnswerElement.classList.add("hide");
+    incorrectAnswerElement.classList.add("hide");
+  }, 1000);
 
   currentQuestionIndex++;
 
@@ -118,7 +129,6 @@ function checkAnswer(selectedChoice, correctAnswer) {
     endQuiz();
   }
 }
-
 
 //The game ends when all questions have been answered or the timer reaches zero
 // Function to end the quiz
@@ -135,9 +145,34 @@ function submitScore() {
   console.log("end button clicked");
   console.log(initialsInput.value);
 
+  localStorage.setItem("highScore", runningScore);
+  // Get the user's initials from the input field
+  var userInitials = initialsInput.value;
+
+  // Create an object to store the user's score and initials
+  var userScore = {
+    initials: userInitials,
+    score: runningScore,
+  };
+
+  // Retrieve the existing high scores from local storage (if any)
+  var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+
+  // Add the user's score and initials to the high scores array
+  highScores.push(userScore);
+
+  // Sort the high scores by score (from highest to lowest)
+  highScores.sort(function (a, b) {
+    return b.score - a.score;
+  });
+
+  // Store the updated high scores array in local storage 
+  //code from lesson
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+
+  // Redirect to the high scores page
+  window.location.href = "highscores.html";
 }
-
-
 
 
 
@@ -149,8 +184,23 @@ function submitScore() {
 
 
 
-// Add an event listener to start the quiz
-startButton.addEventListener("click", startQuiz);
+
+
+
+// Add an event listener to start the quiz. I was getting an errot so I have used page identifiers to make sure the 
+document.addEventListener("DOMContentLoaded", function () {
+  var pageIdentifier = document.body.getAttribute("data-page");
+
+  if (pageIdentifier === "index") {
+    startButton.addEventListener("click", startQuiz);
+    submitButton.addEventListener("click", submitScore);
+  } else if (pageIdentifier === "highscores") {
+    //no other behaviour required
+  }
+});
+
+
+
 
 
 
