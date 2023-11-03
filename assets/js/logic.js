@@ -23,7 +23,6 @@ const incorrectAudio = new Audio("./assets/sfx/incorrect.wav");
 //this is displayed in starter code
 
 
-
 //Once the quiz begins, a countdown timer starts
 // Function to start the quiz
 function startQuiz() {// Start the countdown timer
@@ -61,12 +60,10 @@ function startTimer() {
 
 //show the first question
 function showQuestion() {
-  // un-hide questions section
   
   // Get the current question from the 'questions' array based on the 'currentQuestionIndex'.
   
   var currentQuestion = questions[currentQuestionIndex];
-
   // Set the text of the 'questionTitle' element to the current question's text.
   questionTitle.textContent = currentQuestion.question;
 
@@ -92,9 +89,66 @@ function showQuestion() {
       checkAnswer(choice, currentQuestion.correctAnswer);
     });
   });
-
   
 }
+showQuestion();
+
+// Function to check the selected answer
+function checkAnswer(selectedChoice, correctAnswer) {
+  // Get all choice buttons
+  var choiceButtons = document.querySelectorAll(".choice");
+
+  // Iterate through the buttons to style them
+  choiceButtons.forEach(function (choiceButton) {
+    choiceButton.disabled = true; // Disable buttons to prevent further clicks
+
+    if (choiceButton.textContent === selectedChoice) {
+      // Style the selected (wrong) answer button
+      choiceButton.style.backgroundColor = "green"; // Change to the color you prefer
+      choiceButton.style.color = "white";
+    } else if (choiceButton.textContent === correctAnswer) {
+      // Style the correct answer button
+      choiceButton.style.backgroundColor = "green"; // Change to the color you prefer
+      choiceButton.style.color = "white";
+    }
+  });
+
+  if (selectedChoice === correctAnswer) {
+    correctAudio.play();
+    feedback.textContent = "Correct!";
+  } else {
+    incorrectAudio.play();
+    feedback.textContent = "Incorrect!";
+    timeLeft -= 10;
+  }
+
+  currentQuestionIndex++;
+
+  if (currentQuestionIndex < questions.length) {
+    showQuestion();
+  } else {
+    endQuiz();
+  }
+}
+
+// function checkAnswer(selectedChoice, correctAnswer) {
+//   if (selectedChoice === correctAnswer) {
+//     correctAudio.play();
+//     feedback.textContent = "Correct!";
+//   } else {
+//     incorrectAudio.play();
+//     feedback.textContent = "Incorrect!";
+//     timeLeft -= 10;
+//   }
+
+//   currentQuestionIndex++;
+
+//   if (currentQuestionIndex < questions.length) {
+//     showQuestion();
+//   } else {
+//     endQuiz();
+//   }
+// }
 
 console.log(questionTitle.textContent);
 
@@ -107,8 +161,6 @@ function endQuiz() {
   // Need to display score and initials
 }
 
-// Add an event listener to start the quiz when the "Start" button is clicked
-startButton.addEventListener("click", startQuiz);
    
 
 
