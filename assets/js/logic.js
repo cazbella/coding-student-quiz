@@ -156,11 +156,23 @@ function submitScore() {
 
   console.log(userScore);
 
-  // Retrieve the existing high scores from local storage (if any)
-  var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+// Function to retrieve high scores from local storage or return an empty array
+function getHighScores() {
+  return JSON.parse(localStorage.getItem("highScores")) || [];
+}
 
-  // Add the user's score and initials to the high scores array
+// Function to add a user's score and initials to the high scores array
+function addScoreToHighScores(userScore) {
+  const highScores = getHighScores();
   highScores.push(userScore);
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+}
+
+// Usage example:
+// var userScore = { initials: "AB", score: 100 }; // Your user's score object
+// addScoreToHighScores(userScore); // Add the user's score
+// var scores = getHighScores(); // Retrieve the updated high scores
+
 
 
   // Store the updated high scores array in local storage 
@@ -191,7 +203,7 @@ document.addEventListener("DOMContentLoaded", function () {
   if (pageIdentifier === "index") {
     startButton.addEventListener("click", startQuiz);
     submitButton.addEventListener("click", submitScore);
-  } else if (pageIdentifier === "highscores") {
+  } else if (pageIdentifier === "highscorespage") {
     //no other behaviour required
   }
 });
