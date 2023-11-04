@@ -6,10 +6,13 @@ document.addEventListener("DOMContentLoaded", function () {
   // Retrieve high scores from local storage
   var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
-  // Sort the high scores by score (from highest to lowest)
-  highScores.sort(function (a, b) {
-    return b.score - a.score;
-  });
+// Define a custom sorting function
+function sortByScoreDescending(a, b) {
+  return b.score - a.score;
+}
+
+// Sort the high scores using the custom function
+highScores.sort(sortByScoreDescending);
 
   // Populate the ordered list with high scores
   //code from lesson 
