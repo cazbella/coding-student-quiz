@@ -1,31 +1,30 @@
-//adding event listener here to deal with error. Web says this ensures DOM is fully loaded.
-
 document.addEventListener("DOMContentLoaded", function () {
   var highscoresList = document.getElementById("highscores");
+  var clearButton = document.getElementById("clear"); // Get the "Clear Highscores" button
 
   // Retrieve high scores from local storage
   var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
-// Define a custom sorting function
-function sortByScoreDescending(a, b) {
-  return b.score - a.score;
-}
-
-// Sort the high scores using the custom function
-highScores.sort(sortByScoreDescending);
+  // Sort the high scores by score (from highest to lowest)
+  highScores.sort(function (a, b) {
+    return b.score - a.score;
+  });
 
   // Populate the ordered list with high scores
-  //code from lesson 
   highScores.forEach(function (score, index) {
     var listItem = document.createElement("li");
     listItem.textContent = `${score.initials}: ${score.score}`;
     highscoresList.appendChild(listItem);
   });
+
+  // Add an event listener to the "Clear Highscores" button
+  clearButton.addEventListener("click", function () {
+    // Clear the high scores from local storage
+    localStorage.removeItem("highScores");
+
+    // Clear the highscoresList element by removing all its parts
+    while (highscoresList.firstChild) {
+      highscoresList.removeChild(highscoresList.firstChild);
+    }
+  });
 });
-
-//need function to clear high scores
-//event listener on clear highscores button
-//button to clear individual high scores?
-
-//need key event to make enter work on buttons 
-

@@ -1,4 +1,3 @@
-
 // Other variables
 var currentQuestionIndex = 0;
 var timerInterval;
@@ -17,7 +16,7 @@ var feedback = document.getElementById("feedback");
 var startScreen = document.getElementById("start-screen");
 var questionsSection = document.getElementById("questions");
 var runningScore = 0;
-// var highScores = document.getElementById("high-scores");
+var highScores = document.getElementById("high-scores");
 
 // Audio elements
 const correctAudio = new Audio("./assets/sfx/correct.wav");
@@ -156,23 +155,11 @@ function submitScore() {
 
   console.log(userScore);
 
-// Function to retrieve high scores from local storage or return an empty array
-function getHighScores() {
-  return JSON.parse(localStorage.getItem("highScores")) || [];
-}
+  // Retrieve the existing high scores from local storage (if any)
+  var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
-// Function to add a user's score and initials to the high scores array
-function addScoreToHighScores(userScore) {
-  const highScores = getHighScores();
+  // Add the user's score and initials to the high scores array
   highScores.push(userScore);
-  localStorage.setItem("highScores", JSON.stringify(highScores));
-}
-
-// Usage example:
-// var userScore = { initials: "AB", score: 100 }; // Your user's score object
-// addScoreToHighScores(userScore); // Add the user's score
-// var scores = getHighScores(); // Retrieve the updated high scores
-
 
 
   // Store the updated high scores array in local storage 
@@ -187,6 +174,26 @@ function addScoreToHighScores(userScore) {
 
 
 //After the game ends, the user can save their initials and score to a highscores view using local storage
+
+
+
+
+
+
+
+
+
+// Add an event listener to start the quiz. I was getting an errot so I have used page identifiers to make sure the 
+document.addEventListener("DOMContentLoaded", function () {
+  var pageIdentifier = document.body.getAttribute("data-page");
+
+  if (pageIdentifier === "index") {
+    startButton.addEventListener("click", startQuiz);
+    submitButton.addEventListener("click", submitScore);
+  } else if (pageIdentifier === "highscores") {
+    //no other behaviour required
+  }
+});
 
 
 
