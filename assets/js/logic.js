@@ -22,12 +22,6 @@ var highScores = document.getElementById("high-scores");
 const correctAudio = new Audio("./assets/sfx/correct.wav");
 const incorrectAudio = new Audio("./assets/sfx/incorrect.wav");
 
-//The first view of the application displays a button used to start the quiz
-//this is displayed in starter code
-
-
-
-//Once the quiz begins, a countdown timer starts
 // Function to start the quiz
 function startQuiz() {// Start the countdown timer
   console.log("Start button clicked!");
@@ -129,7 +123,6 @@ function checkAnswer(selectedChoice, correctAnswer) {
   }
 }
 
-//The game ends when all questions have been answered or the timer reaches zero
 // Function to end the quiz
 function endQuiz() {
   clearInterval(timerInterval);
@@ -137,11 +130,9 @@ function endQuiz() {
   questionsSection.classList.add("hide");
   endScreen.classList.remove("hide");
   finalScore.textContent = runningScore;
-  // Need to display score and initials
 }
 
 function submitScore() {
-  console.log("end button clicked");
 
   localStorage.setItem("highScore", runningScore);
   // Get the user's initials from the input field
@@ -161,7 +152,6 @@ function submitScore() {
   // Add the user's score and initials to the high scores array
   highScores.push(userScore);
 
-
   // Store the updated high scores array in local storage 
   //code from lesson
   localStorage.setItem("highScores", JSON.stringify(highScores));
@@ -169,21 +159,13 @@ function submitScore() {
   // Redirect to the high scores page
   window.location.href = "highscores.html";
 }
-
-
-
-
-//After the game ends, the user can save their initials and score to a highscores view using local storage
-
-
-
-
-
-
-
-
-
-// Add an event listener to start the quiz. I was getting an errot so I have used page identifiers to make sure the 
+//Event listener for submit using enter key.
+initialsInput.addEventListener("keydown", function (event) {
+  if (event.key === "Enter") {
+    submitScore();
+  }
+})
+// Add an event listener to start the quiz. I was getting an error so I have used page identifiers.
 document.addEventListener("DOMContentLoaded", function () {
   var pageIdentifier = document.body.getAttribute("data-page");
 
@@ -194,29 +176,3 @@ document.addEventListener("DOMContentLoaded", function () {
     //no other behaviour required
   }
 });
-
-
-
-
-
-
-
-
-
-// Add an event listener to start the quiz. I was getting an errot so I have used page identifiers to make sure the 
-document.addEventListener("DOMContentLoaded", function () {
-  var pageIdentifier = document.body.getAttribute("data-page");
-
-  if (pageIdentifier === "index") {
-    startButton.addEventListener("click", startQuiz);
-    submitButton.addEventListener("click", submitScore);
-  } else if (pageIdentifier === "highscorespage") {
-    //no other behaviour required
-  }
-});
-
-
-
-
-
-
