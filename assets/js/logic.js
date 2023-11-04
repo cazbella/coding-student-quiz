@@ -17,7 +17,7 @@ var feedback = document.getElementById("feedback");
 var startScreen = document.getElementById("start-screen");
 var questionsSection = document.getElementById("questions");
 var runningScore = 0;
-var highScores = document.getElementById("high-scores");
+// var highScores = document.getElementById("high-scores");
 
 // Audio elements
 const correctAudio = new Audio("./assets/sfx/correct.wav");
