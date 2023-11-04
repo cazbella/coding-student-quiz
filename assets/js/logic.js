@@ -143,7 +143,6 @@ function endQuiz() {
 
 function submitScore() {
   console.log("end button clicked");
-  console.log(initialsInput.value);
 
   localStorage.setItem("highScore", runningScore);
   // Get the user's initials from the input field
@@ -155,16 +154,14 @@ function submitScore() {
     score: runningScore,
   };
 
+  console.log(userScore);
+
   // Retrieve the existing high scores from local storage (if any)
   var highScores = JSON.parse(localStorage.getItem("highScores")) || [];
 
   // Add the user's score and initials to the high scores array
   highScores.push(userScore);
 
-  // Sort the high scores by score (from highest to lowest)
-  highScores.sort(function (a, b) {
-    return b.score - a.score;
-  });
 
   // Store the updated high scores array in local storage 
   //code from lesson

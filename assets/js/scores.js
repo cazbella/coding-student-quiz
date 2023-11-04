@@ -1,3 +1,5 @@
+//adding event listener here to deal with error. Web says this ensures DOM is fully loaded.
+
 document.addEventListener("DOMContentLoaded", function () {
   var highscoresList = document.getElementById("highscores");
 
@@ -10,72 +12,17 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Populate the ordered list with high scores
+  //code from lesson 
   highScores.forEach(function (score, index) {
     var listItem = document.createElement("li");
-    listItem.textContent = `${index + 1}. ${score.initials}: ${score.score}`;
+    listItem.textContent = `${score.initials}: ${score.score}`;
     highscoresList.appendChild(listItem);
   });
 });
 
-// add button to remove score at end 
+//need function to clear high scores
+//event listener on clear highscores button
+//button to clear individual high scores?
 
+//need key event to make enter work on buttons 
 
-
-// var startButton = document.getElementById("start");
-// var timeDisplay = document.getElementById("time");
-// var questionTitle = document.getElementById("question-title");
-// var choicesContainer = document.getElementById("choices");
-// var endScreen = document.getElementById("end-screen");
-// var finalScore = document.getElementById("final-score");
-// var initialsInput = document.getElementById("initials");
-// var submitButton = document.getElementById("submit");
-// var feedback = document.getElementById("feedback");
-// var startScreen = document.getElementById("start-screen");
-// var questionsSection = document.getElementById("questions");
-// var runningScore = 0;
-
-// // Get DOM elements
-// var highscoresList = document.getElementById("highscores");
-// var clearButton = document.getElementById("clear");
-// var scoreEntry = {
-//   score: runningScore,
-//   initials: initialsInput,
-// };
-
-// // Load highscores from local storage on page load
-// window.onload = function () {
-//   var highScore = localStorage.getItem("highScore");
-
-//   if (highScore !== null) {
-//     // Display the high score in your highscores page
-//     // You can add it to an ordered list or any other way you prefer
-//     var highscoresList = document.getElementById("highscores");
-//     var listItem = document.createElement("li");
-//     listItem.textContent = "High Score: " + highScore;
-//     highscoresList.appendChild(listItem);
-//   }
-// };
-
-
-// //need to sort high scores from highest to lowest
-
-// // change the high scores to strings
-
-
-// //store scores in local storage
-
-
-// // Add an event listener to the clear button
-// // clearButton.onclick = function () {
- 
-// // };
-
-// function clearHighscores() {
- 
-// }
-
-
-
-
-
-// // submitButton.addEventListener("click", startQuiz);
